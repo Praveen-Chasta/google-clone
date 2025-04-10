@@ -28,6 +28,7 @@ const HomePage = () => {
   const clearAllResults = () => {
     setSearchResults([]);
     setLenseSearchResults([]);
+    setProducts([]);
   };
 
    {/* Mic Function */}
@@ -158,6 +159,11 @@ const HomePage = () => {
 
   const handleCaptureImage = async () => {
     try {
+   
+      clearAllResults();
+
+      setLoading(true);
+
       const image = await Camera.getPhoto({
         quality: 90,
         resultType: CameraResultType.Uri,
@@ -169,13 +175,18 @@ const HomePage = () => {
       setCapturedImage(image.webPath || null);
 
       const response = await axios.get("https://fakestoreapi.com/products");
-
+  
       setProducts(response.data);
       console.log("Fetched Products:", response.data);
+  
     } catch (error) {
       console.error("Error capturing image or fetching data:", error);
+    } finally {
+   
+      setLoading(false);
     }
   };
+  
 
   return (
     <div className="homepage-main-container d-flex flex-column justify-content-center align-items-center text-white">
@@ -357,6 +368,13 @@ const HomePage = () => {
 
       {/*  Search Input Data */}
       <div>
+        {loading ? (
+          <div className="text-center mt-4">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
           <div className="mt-5 ">
             {searchResults.map((result, index) => (
               <div key={index} className="result-item-custom">
@@ -373,6 +391,7 @@ const HomePage = () => {
               </div>
             ))}
           </div>
+        )}
       </div>
 
       {/* Desktop Drag and Drop  Data */}
@@ -402,13 +421,6 @@ const HomePage = () => {
       
       {/* Mobile Click Image */}
       <div className="drag-drop-result">
-        {loading ? (
-          <div className="text-center mt-4">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : (
           <div className="row mt-5">
             {products.map((result, index) => (
               <div key={index} className="col-md-4 mb-4">
@@ -430,7 +442,6 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-        )}
       </div>
 
       {/* 🎤 Bootstrap Modal with Mic and Dots */}
