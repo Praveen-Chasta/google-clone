@@ -136,6 +136,7 @@ const HomePage = () => {
   };
 
    {/* Search Function */}
+   
 
   const handleSearch = async () => {
     if (!imageUrl.trim()) {
