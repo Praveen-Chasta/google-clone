@@ -4,6 +4,9 @@ import { IoMdSearch } from "react-icons/io";
 import { IoImages } from "react-icons/io5";
 import axios from "axios";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import { BiHomeAlt2 } from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { PiNumberSquareSixBold } from "react-icons/pi";
 import "../App.css";
 
 const HomePage = () => {
@@ -19,10 +22,15 @@ const HomePage = () => {
   const [show, setShow] = useState(false);
   const [fullscreen] = useState(true);
 
+  const [products, setProducts] = useState([]);
+  const [capturedImage, setCapturedImage] = useState(null);
+
   const clearAllResults = () => {
     setSearchResults([]);
     setLenseSearchResults([]);
   };
+
+   {/* Mic Function */}
 
   const startListening = () => {
     const SpeechRecognition =
@@ -45,38 +53,28 @@ const HomePage = () => {
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
       inputRef.current.value = transcript;
-
-      // Manually trigger the API like Enter was pressed
       triggerSearch(transcript);
     };
-
-    // recognition.onerror = (event) => {
-    //   console.error("Speech recognition error:", event.error);
-    //   setShow(false);
-    // };
-
-    // recognition.onend = () => {
-    //   setShow(false);
-    // };
 
     recognition.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
       alert("Speech recognition error: " + event.error);
       setShow(false);
     };
-    
+
     recognition.onend = () => {
       console.log("Speech recognition ended");
       setShow(false);
     };
-    
 
     recognition.start();
   };
 
+   {/* Manually Enter Search Function Function */}
+
   const triggerSearch = async (searchTerm) => {
     if (searchTerm.trim()) {
-      clearAllResults(); 
+      clearAllResults();
       setLoading(true);
       try {
         const response = await axios.get(
@@ -96,6 +94,8 @@ const HomePage = () => {
       triggerSearch(inputRef.current.value);
     }
   };
+
+  {/* Desktop Drag and Drop Function */}
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -134,6 +134,8 @@ const HomePage = () => {
     }
   };
 
+   {/* Search Function */}
+
   const handleSearch = async () => {
     if (!imageUrl.trim()) {
       alert("Please paste an image URL");
@@ -151,21 +153,60 @@ const HomePage = () => {
       setLoading(false);
     }
   };
+  
+  {/* Mobile Camera Functionality */}
+
+  const handleCaptureImage = async () => {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+        allowEditing: true,
+        saveToGallery: false,
+      });
+
+      setCapturedImage(image.webPath || null);
+
+      const response = await axios.get("https://fakestoreapi.com/products");
+
+      setProducts(response.data);
+      console.log("Fetched Products:", response.data);
+    } catch (error) {
+      console.error("Error capturing image or fetching data:", error);
+    }
+  };
 
   return (
     <div className="homepage-main-container d-flex flex-column justify-content-center align-items-center text-white">
-      <div className="header-section w-100 d-flex justify-content-end align-items-center">
-        <span className="me-2">Gmail</span>
-        <span className="me-2">Images</span>
+      
+      {/* Desktop Header */}
+      <div className="header-desktop-section w-100 ">
+        <span className="me-3">Gmail</span>
+        <span className="me-3">Images</span>
         <img src="/labs.svg" className="me-3" />
-        <img src="/praveen.jpg" className="me- profile-pic" />
+        <img src="/praveen.jpg" className="profile-pic" />
+      </div>
+      
+      {/* Mobile Header */}
+      <div className="header-mobile-section w-100">
+        <div>
+          <BiHomeAlt2 className="react-icon" />
+        </div>
+        <div>
+          <img src="/praveen.jpg" className="profile-pic me-3" />
+          <PiNumberSquareSixBold className="react-icon me-2" />
+          <BsThreeDotsVertical className="react-icon " />
+        </div>
       </div>
 
       <img src="/google-1.svg" alt="Google Logo" className="google-logo" />
 
       <div className="search-bar d-flex align-items-center w-100 justify-content-center">
         <div className="search-box d-flex align-items-center w-100 px-3">
-          <IoMdSearch className="text-[#202124] me-2" size={25} />
+          <IoMdSearch className="text-[#202124] me-2 google-mic" />
+           
+          {/* Text Area */}
 
           <input
             type="text"
@@ -175,6 +216,8 @@ const HomePage = () => {
             placeholder="Search Google"
           />
 
+          {/* Google Mic */}
+
           <img
             src="/png-transparent-google-mic-logo-icon-removebg-preview.png"
             alt="Google mic"
@@ -183,10 +226,20 @@ const HomePage = () => {
             style={{ cursor: "pointer" }}
           />
 
+          {/* Image for mobile screens */}
+          <img
+            src="/Google_Lens_Icon.svg.png"
+            alt="Google Lens Mobile"
+            className="google-lense-mobile"
+            onClick={handleCaptureImage}
+          />
+
+          {/* Image for Desktop screens */}
+
           <img
             src="/Google_Lens_Icon.svg.png"
             alt="Google Lens"
-            className="google-lense"
+            className="google-lense-desktop"
             onClick={() => setLenseShowModal(true)}
           />
 
@@ -239,7 +292,8 @@ const HomePage = () => {
           )}
         </div>
       </div>
-
+      
+      {/*  recent tabs  */}
       <div className="add-shortcut mt-4 overflow-auto scroll-wrapper">
         <div className="shortcut-container d-inline-flex justify-content-center">
           <div className="shortcut-icon d-flex flex-column justify-content-center align-items-center">
@@ -303,13 +357,6 @@ const HomePage = () => {
 
       {/*  Search Input Data */}
       <div>
-        {loading ? (
-          <div className="text-center mt-4">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : (
           <div className="mt-5 ">
             {searchResults.map((result, index) => (
               <div key={index} className="result-item-custom">
@@ -326,10 +373,34 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-        )}
       </div>
 
-      {/*  Drag and Drop  Data */}
+      {/* Desktop Drag and Drop  Data */}
+      <div className="drag-drop-result">
+          <div className="row mt-5">
+            {lenseSearchResults.map((result, index) => (
+              <div key={index} className="col-md-4 mb-4">
+                <div className="result-card-dark p-3 h-100 rounded shadow-sm">
+                  <div className="text-center">
+                    <img
+                      src={result.image}
+                      className="img-fluid result-img mb-3"
+                      alt={`item-${index}`}
+                    />
+                  </div>
+                  <h5 className="result-title text-white fw-semibold mb-2 text-start">
+                    {result.title}
+                  </h5>
+                  <p className="result-description text-light text-start">
+                    {result.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+      </div>
+      
+      {/* Mobile Click Image */}
       <div className="drag-drop-result">
         {loading ? (
           <div className="text-center mt-4">
@@ -339,7 +410,7 @@ const HomePage = () => {
           </div>
         ) : (
           <div className="row mt-5">
-            {lenseSearchResults.map((result, index) => (
+            {products.map((result, index) => (
               <div key={index} className="col-md-4 mb-4">
                 <div className="result-card-dark p-3 h-100 rounded shadow-sm">
                   <div className="text-center">
@@ -374,7 +445,7 @@ const HomePage = () => {
           style={{ height: "100vh" }}
         >
           <img
-            src="/public/png-transparent-google-mic-logo-icon-removebg-preview.png"
+            src="/png-transparent-google-mic-logo-icon-removebg-preview.png"
             alt="Mic"
             className="big-mic"
             style={{ width: "80px", marginBottom: "30px" }}
