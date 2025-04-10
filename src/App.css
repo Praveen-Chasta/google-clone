@@ -1,0 +1,334 @@
+:root {
+    --color-bg-dark: #202124;
+    --color-text-light: #ffffff;
+    --color-gray: #303134;
+    --color-muted: #5f6368;
+  
+    /* Optional: Google accent colors */
+    --color-google-blue: #4285f4;
+    --color-google-red: #ea4335;
+    --color-google-yellow: #fbbc05;
+    --color-google-green: #34a853;
+  }
+  
+  body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+
+  .header-section{
+    padding: 30px
+  }
+
+  .google-logo {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    background-color: transparent;
+    margin-top: 80px;
+    margin-bottom: 30px;
+  }
+
+  .profile-pic{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: fill;
+  }
+  
+
+  @media screen and (max-width : 576px){
+    .google-logo {
+      max-width: 150px;
+      margin-top: 130px;
+      margin-bottom: 30px;
+    }
+
+    .header-section{
+      padding: 20px 10px;
+    }
+
+    .profile-pic{
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: fill;
+    }
+  }
+  
+  .search-bar {
+    max-width: 820px;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .search-box {
+    background-color: var(--color-text-light);
+    color: var(--color-bg-dark); 
+    border-radius: 30px;
+    padding: 10px;
+  }
+
+  .search-element{
+    color: var(--color-bg-dark); 
+  }
+  
+  .search-element::placeholder {
+    color: var(--color-bg-dark); 
+    font-size: 15px;
+  }
+  
+  .search-element:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+
+  .google-mic{
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+  }
+
+  .google-lense{
+    width: 25px;
+    height: 25px;
+  }
+
+  .google-shotcuts{
+    width: 110px;
+    height: 110px;
+  }
+
+  .scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-align: center;
+  }
+  
+  .shortcut-container {
+    display: inline-flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 auto;
+  }
+  
+  .shortcut-icon {
+    width: 96px;
+    flex: 0 0 auto;
+    text-align: center;
+  }
+  
+  .google-shortcuts {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: var(--color-gray);
+    padding: 8px;
+  }
+  
+  .shortcut-text {
+    font-size: 13px;
+    color: var(--color-muted);
+    margin-top: 5px;
+  }
+  
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: bounce 1s infinite ease-in-out;
+  }
+
+  .dot-1 {
+    background-color : var(--color-google-blue);
+  }
+
+  .dot-2 {
+    background-color : var(--color-google-red);
+  }
+
+  .dot-3 {
+    background-color : var(--color-google-yellow);
+  }
+
+  .dot-4 {
+    background-color : var(--color-google-green);
+  }
+  
+  
+  @keyframes blink {
+    0% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+  
+  
+
+  .lense-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(33, 33, 33, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .lense-modal-content {
+    background-color: #1f1f1f;
+    color: white;
+    border-radius: 15px;
+    padding: 30px;
+    width: 500px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .drop-area {
+    border: 2px dashed #555;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .upload-link {
+    color: #4a90e2;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .divider {
+    margin: 20px 0;
+    border-top: 1px solid #333;
+    position: relative;
+  }
+  .divider::before {
+    content: "OR";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    background-color: #1f1f1f;
+    padding: 0 10px;
+    transform: translateX(-50%);
+  }
+  
+  .url-search {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .url-search input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+  }
+  
+  .url-search button {
+    padding: 10px 20px;
+    background: #4a90e2;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    font-size: 18px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .result-item-custom {
+    margin-bottom: 1.5rem;
+    background-color: #121212;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #5f6368;
+    max-width: 820px;
+  }
+  
+  .result-title {
+    display: block;
+    color: #8ab4f8; 
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 0.3rem;
+  }
+  
+  .result-title:hover {
+    text-decoration: underline;
+  }
+  
+  .result-link {
+    font-size: 0.85rem;
+    color: #bdc1c6; 
+    margin-bottom: 0.2rem;
+  }
+  
+  .result-description {
+    color: #9aa0a6; 
+    font-size: 0.95rem;
+  }
+  
+
+  .drag-drop-result{
+    max-width: 820px;
+  }
+
+
+  .result-card-dark {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #333;
+  }
+  
+  .result-card-dark:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(255, 255, 255, 0.05);
+  }
+  
+  .result-img {
+    max-height: 200px;
+    object-fit: contain;
+  }
+  
+  .result-title {
+    font-size: 1.1rem;
+    color: #ffffff;
+  }
+  
+  .result-description {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #dddddd;
+  }
+  

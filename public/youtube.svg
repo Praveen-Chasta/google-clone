@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xodm="http://www.corel.com/coreldraw/odm/2003" xml:space="preserve" width="10.3163mm" height="10.3163mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 148.38 148.38">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil1 {fill:white;fill-rule:nonzero}
+    .fil0 {fill:url(#id0);fill-rule:nonzero}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="126.65" y1="21.73" x2="21.73" y2="126.65">
+   <stop offset="0" style="stop-opacity:1; stop-color:red"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#9D0000"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_3138686787536">
+   <path class="fil0" d="M-0 74.19c0,40.97 33.21,74.19 74.19,74.19 40.97,0 74.19,-33.22 74.19,-74.19l0 0c0,-40.97 -33.22,-74.19 -74.19,-74.19l0 0c-40.97,0 -74.19,33.21 -74.19,74.19z"/>
+   <path class="fil1" d="M87.11 75.59l-20.43 10.1c-0.8,0.44 -3.52,-0.14 -3.52,-1.06l0 -20.75c0,-0.92 2.75,-1.5 3.55,-1.04l19.56 10.64c0.82,0.47 1.68,1.65 0.85,2.1zm26.79 -12.19c0,-9.84 -7.98,-17.81 -17.81,-17.81l-45.55 0c-9.84,0 -17.81,7.98 -17.81,17.81l0 21.19c0,9.84 7.98,17.82 17.81,17.82l45.55 0c9.84,0 17.81,-7.98 17.81,-17.82l0 -21.19z"/>
+  </g>
+ </g>
+</svg>
